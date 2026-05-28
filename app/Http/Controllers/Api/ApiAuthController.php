@@ -107,4 +107,46 @@ class ApiAuthController extends Controller
             'status' => 'success'
         ], 200);
     }
+
+    public function activeSessions(Request $request)
+    {
+        $user = $request->user();
+
+        // 1. Get active database browser sessions
+        $dbSessions = \Illuminate\Support\Facades\DB::table('sessions')
+            ->where('user_id', $user->id)
+            ->orderBy('last_activity', 'desc')
+            ->get()
+            ->map(function ($session) use ($request) {
+                $agent = tap(new \Laravel\Jetstream\Agent(), fn ($a) => $a->setUserAgent($session->user_agent));
+                return [
+                    'id' => $session->id,
+                    'ip_address' => $session->ip_address,
+                    'browser' => $agent->browser(),
+                    'platform' => $agent->platform(),
+                    'is_current_device' => $request->hasSession() && $session->id === $request->session()->getId(),
+                    'last_active' => \Illuminate\Support\Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
+                ];
+            });
+
+        // 2. Get active personal access tokens (Sanctum)
+        $apiTokens = $user->tokens->map(function ($token) {
+            return [
+                'id' => $token->id,
+                'name' => $token->name,
+                'abilities' => $token->abilities,
+                'last_used_at' => $token->last_used_at ? $token->last_used_at->diffForHumans() : null,
+                'created_at' => $token->created_at->diffForHumans(),
+            ];
+        });
+
+        return response()->json([
+            'data' => [
+                'browser_sessions' => $dbSessions,
+                'api_tokens' => $apiTokens,
+            ],
+            'message' => 'Active sessions retrieved successfully.',
+            'status' => 'success'
+        ], 200);
+    }
 }

@@ -12,6 +12,7 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [ApiAuthController::class, 'logout']);
+        Route::get('/sessions', [ApiAuthController::class, 'activeSessions']);
 
         Route::get('/tasks', [ApiTaskController::class, 'index']);
         Route::post('/tasks', [ApiTaskController::class, 'store']);
@@ -26,6 +27,20 @@ Route::prefix('v1')->group(function () {
             Route::get('/projects/{project}', [ApiProjectController::class, 'show']);
             Route::put('/projects/{project}', [ApiProjectController::class, 'update']);
             Route::delete('/projects/{project}', [ApiProjectController::class, 'destroy']);
+
+            
         });
     });
+});
+Route::get('/test', function () {
+    return response()->json([
+        'message' => 'TaskFlow API working successfully'
+    ]);
+});
+
+Route::post('/tasks', function (Request $request) {
+    return response()->json([
+        'message' => 'Task created successfully',
+        'task' => $request->input('task')
+    ]);
 });
