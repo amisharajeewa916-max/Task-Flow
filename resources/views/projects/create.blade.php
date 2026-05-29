@@ -20,14 +20,14 @@
                     <!-- Project Name -->
                     <div>
                         <label for="project_name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Project Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="project_name" id="project_name" value="{{ old('project_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter project name" required>
+                        <input type="text" name="project_name" id="project_name" value="{{ old('project_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter project name" required>
                         @error('project_name') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
                     <!-- Description -->
                     <div>
                         <label for="description" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Description</label>
-                        <textarea name="description" id="description" rows="4" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Describe this project...">{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" rows="4" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Describe this project...">{{ old('description') }}</textarea>
                         @error('description') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
@@ -35,13 +35,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label for="start_date" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Start Date</label>
-                            <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                            <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                             @error('start_date') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="end_date" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">End Date</label>
-                            <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                            <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                             @error('end_date') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -50,14 +50,14 @@
                     @if($teams->isEmpty())
                         <div>
                             <label for="new_team_name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Team Workspace Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="new_team_name" id="new_team_name" value="{{ old('new_team_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter a team name to create" required>
+                            <input type="text" name="new_team_name" id="new_team_name" value="{{ old('new_team_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter a team name to create" required>
                             @error('new_team_name') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">No team workspaces were found. A new team will be created automatically for this project.</p>
                         </div>
                     @else
                         <div>
                             <label for="team_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Associated Team Workspace <span class="text-red-500">*</span></label>
-                            <select name="team_id" id="team_id" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" required>
+                            <select name="team_id" id="team_id" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" required>
                                 <option value="">-- Select Team --</option>
                                 @foreach($teams as $t)
                                     <option value="{{ $t->id }}" {{ old('team_id') == $t->id ? 'selected' : '' }}>{{ $t->team_name }}</option>
@@ -67,7 +67,7 @@
                         </div>
                         <div>
                             <label for="new_team_name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Create New Team Workspace (optional)</label>
-                            <input type="text" name="new_team_name" id="new_team_name" value="{{ old('new_team_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter a new team name if you want to create one">
+                            <input type="text" name="new_team_name" id="new_team_name" value="{{ old('new_team_name') }}" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter a new team name if you want to create one">
                             @error('new_team_name') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     @endif

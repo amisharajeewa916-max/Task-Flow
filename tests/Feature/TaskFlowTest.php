@@ -158,6 +158,89 @@ class TaskFlowTest extends TestCase
         $this->delete(route('tasks.destroy', $task->id))->assertStatus(403);
     }
 
+    public function test_user_can_delete_their_own_task(): void
+    {
+        $user = User::where('email', 'user1@example.com')->first();
+
+        $task = Task::factory()->create([
+            'task_name' => 'Task To Delete',
+            'status' => 'pending',
+            'created_by' => $user->id,
+            'assigned_to' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        $response = $this->delete(route('tasks.destroy', $task->id));
+
+        $response->assertRedirect(route('tasks.index'));
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+    }
+
+    public function test_admin_can_delete_any_task(): void
+    {
+        $admin = User::where('email', 'admin@example.com')->first();
+        $user  = User::where('email', 'user1@example.com')->first();
+
+        $task = Task::factory()->create([
+            'task_name' => 'Someone Elses Task',
+            'status' => 'pending',
+            'created_by' => $user->id,
+            'assigned_to' => $user->id,
+        ]);
+
+        $this->actingAs($admin);
+
+        $response = $this->delete(route('tasks.destroy', $task->id));
+
+        $response->assertRedirect(route('tasks.index'));
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+    }
+
+    public function test_delete_task_flashes_success_message(): void
+    {
+        $user = User::where('email', 'user1@example.com')->first();
+
+        $task = Task::factory()->create([
+            'task_name' => 'Flash Message Task',
+            'status' => 'pending',
+            'created_by' => $user->id,
+            'assigned_to' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        $response = $this->delete(route('tasks.destroy', $task->id));
+
+        $response->assertSessionHas('message', 'Task deleted successfully.');
+    }
+
+    public function test_delete_nonexistent_task_returns_404(): void
+    {
+        $user = User::where('email', 'admin@example.com')->first();
+        $this->actingAs($user);
+
+        $response = $this->delete(route('tasks.destroy', 99999));
+        $response->assertStatus(404);
+    }
+
+    public function test_task_show_page_renders_for_creator(): void
+    {
+        $user = User::where('email', 'user1@example.com')->first();
+
+        $task = Task::factory()->create([
+            'task_name' => 'Visible Task',
+            'status'    => 'pending',
+            'created_by' => $user->id,
+            'assigned_to' => $user->id,
+        ]);
+
+        $this->actingAs($user);
+
+        $response = $this->get(route('tasks.show', $task->id));
+        $response->assertStatus(200);
+    }
+
     public function test_api_authentication_required(): void
     {
         $response = $this->getJson('/api/v1/tasks');

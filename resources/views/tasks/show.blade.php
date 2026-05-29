@@ -10,6 +10,15 @@
                         Edit Task
                     </a>
                 @endcan
+                @can('delete', $task)
+                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition cursor-pointer">
+                            Delete Task
+                        </button>
+                    </form>
+                @endcan
                 <a href="{{ route('tasks.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-900 hover:bg-gray-950 text-white font-medium text-sm rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition cursor-pointer">
                     Back to List
                 </a>

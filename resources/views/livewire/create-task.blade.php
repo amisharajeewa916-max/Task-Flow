@@ -34,14 +34,14 @@
                             <!-- Task Name -->
                             <div>
                                 <label for="task_name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Task Title <span class="text-red-500">*</span></label>
-                                <input type="text" id="task_name" wire:model="task_name" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter task title" required>
+                                <input type="text" id="task_name" wire:model="task_name" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Enter task title" required>
                                 @error('task_name') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                             </div>
 
                             <!-- Description -->
                             <div>
                                 <label for="description" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Description</label>
-                                <textarea id="description" wire:model="description" rows="3" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Describe the task..."></textarea>
+                                <textarea id="description" wire:model="description" rows="3" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm" placeholder="Describe the task..."></textarea>
                                 @error('description') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                             </div>
 
@@ -83,7 +83,7 @@
                                 <!-- Priority -->
                                 <div>
                                     <label for="priority" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Priority</label>
-                                    <select id="priority" wire:model="priority" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                                    <select id="priority" wire:model="priority" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                                         <option value="low">Low</option>
                                         <option value="medium">Medium</option>
                                         <option value="high">High</option>
@@ -94,7 +94,7 @@
                                 <!-- Deadline -->
                                 <div>
                                     <label for="deadline" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Deadline</label>
-                                    <input type="date" id="deadline" wire:model="deadline" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                                    <input type="date" id="deadline" wire:model="deadline" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                                     @error('deadline') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                 <!-- Project Selection -->
                                 <div>
                                     <label for="project_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Project</label>
-                                    <select id="project_id" wire:model.live="project_id" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                                    <select id="project_id" wire:model.live="project_id" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                                         <option value="">-- No Project --</option>
                                         @foreach($projects as $p)
                                             <option value="{{ $p->id }}">{{ $p->project_name }}</option>
@@ -126,7 +126,7 @@
                                 <!-- User Assignment -->
                                 <div>
                                     <label for="assigned_to" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Assign User</label>
-                                    <select id="assigned_to" wire:model="assigned_to" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-150 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
+                                    <select id="assigned_to" wire:model="assigned_to" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm">
                                         <option value="">-- Unassigned --</option>
                                         @foreach($users as $u)
                                             <option value="{{ $u->id }}">{{ $u->name }} ({{ ucfirst($u->role) }})</option>

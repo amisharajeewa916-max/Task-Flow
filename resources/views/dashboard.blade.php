@@ -8,6 +8,13 @@
     <div class="py-12 bg-gray-50/50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
             
+            <!-- Message Banner -->
+            @if (session()->has('message'))
+                <div class="p-4 text-sm text-green-800 rounded-xl bg-green-50 dark:bg-gray-800 dark:text-green-400 border border-green-150 shadow-sm flex items-center justify-between" role="alert">
+                    <span class="font-medium font-outfit">{{ session('message') }}</span>
+                </div>
+            @endif
+
             <!-- Welcome Header -->
             <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div class="space-y-1">

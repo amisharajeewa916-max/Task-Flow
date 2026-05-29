@@ -18,6 +18,11 @@ class Project extends Model
         'created_by'
     ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function team()
     {
         return $this->belongsTo(Team::class);

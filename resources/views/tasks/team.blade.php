@@ -56,7 +56,7 @@
                                             {{ str_replace('_', ' ', $t->status) }}
                                         </span>
                                     </td>
-                                    <td class="p-4 sm:p-5 text-right space-x-1.5">
+                                    <td class="p-4 sm:p-5 text-right space-x-1.5 flex justify-end items-center">
                                         <a href="{{ route('tasks.show', $t->id) }}" class="inline-flex items-center px-2 py-1 bg-gray-50 hover:bg-gray-100 border border-gray-250 rounded-lg text-xxxxs font-bold transition">
                                             View
                                         </a>
@@ -64,6 +64,15 @@
                                             <a href="{{ route('tasks.edit', $t->id) }}" class="inline-flex items-center px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-650 rounded-lg text-xxxxs font-bold transition">
                                                 Edit
                                             </a>
+                                        @endcan
+                                        @can('delete', $t)
+                                            <form action="{{ route('tasks.destroy', $t->id) }}" method="POST" class="inline m-0" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="inline-flex items-center px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-650 rounded-lg text-xxxxs font-bold transition cursor-pointer border border-transparent">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         @endcan
                                     </td>
                                 </tr>

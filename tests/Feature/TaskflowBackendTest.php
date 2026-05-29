@@ -116,6 +116,43 @@ class TaskflowBackendTest extends TestCase
         $deleteResponse->assertStatus(403);
     }
 
+    public function test_user_can_delete_their_own_task()
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create([
+            'assigned_to' => $user->id,
+            'created_by'  => $user->id,
+            'status'      => 'pending',
+        ]);
+
+        $response = $this->actingAs($user)->delete("/tasks/{$task->id}");
+
+        $response->assertRedirect('/tasks');
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+    }
+
+    public function test_delete_task_flashes_success_message()
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create([
+            'assigned_to' => $user->id,
+            'created_by'  => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)->delete("/tasks/{$task->id}");
+
+        $response->assertSessionHas('message', 'Task deleted successfully.');
+    }
+
+    public function test_delete_nonexistent_task_returns_404()
+    {
+        $user = User::factory()->create(['role' => 'admin']);
+
+        $response = $this->actingAs($user)->delete('/tasks/99999');
+        $response->assertStatus(404);
+    }
+
+
     public function test_api_auth_returns_401_without_token()
     {
         $response = $this->getJson('/api/v1/tasks');
@@ -145,5 +182,13 @@ class TaskflowBackendTest extends TestCase
 
         $response = $this->actingAs($user)->get('/reports');
         $response->assertStatus(403);
+    }
+
+    public function test_task_index_is_accessible_after_login()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/tasks');
+        $response->assertStatus(200);
     }
 }

@@ -28,6 +28,8 @@ class AuthenticationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertSessionHas('message', 'You have successfully logged in!');
+        $response->assertSessionHas('flash.banner', 'You have successfully logged in!');
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
